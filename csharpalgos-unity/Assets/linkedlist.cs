@@ -112,9 +112,11 @@ public class SingleLinkedList<T> : IEnumerable<T> {
         }
     }
 
-    // TODO: add AddStart!
     public void AddStart(T value) {
-
+		var newNode = new SLLNode();
+		newNode.data = value;
+		newNode.next = head;
+		head = newNode;
     }
 
 	public void AddLast(T value) {
@@ -161,24 +163,33 @@ public class SingleLinkedList<T> : IEnumerable<T> {
     }
 
     void Remove(SLLNode node) {
-		var iterNode = head;
-		for (int i = 0; node != null; i++) {
-			if (node == iterNode) {
-				Remove(i);
-				return;
+		if (node == head) {
+			head = head.next;
+		} else {
+			var iter = FindPreviousNode(node);
+			if (iter != null) {
+				iter.next = node.next;
+			} else {
+				throw new System.InvalidOperationException("node not found");
 			}
-			iterNode = iterNode.next;
 		}
     }
 
     public void Remove(T value) {
-		var node = head;
-		for (int i = 0; node != null; i++) {
-			if (value.Equals(node.data)) {
-				Remove(i);
-				return;
+		if (head != null && head.data.Equals(value)) {
+			head = head.next;
+		} else {
+			var node = head.next;
+			var left = head;
+			while (node != null) {
+				if (node.data.Equals(value)) {
+					left.next = node.next;
+					return;
+				}
+				left = node;
+				node = node.next;
 			}
-			node = node.next;
+			throw new System.InvalidOperationException("node not found");
 		}
     }
 

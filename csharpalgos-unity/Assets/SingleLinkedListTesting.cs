@@ -11,6 +11,7 @@ public class SingleLinkedListTesting : MonoBehaviour {
 		TestAddRemove();
 		TestAddBeforeAfter();
 		TestEnumeration();
+		TestAddStart();
 	}
 	
 	void TestIndexOperations() {
@@ -66,6 +67,16 @@ public class SingleLinkedListTesting : MonoBehaviour {
 			print(item);
 		}
 		print("Expected: Foo, Bar, Baz");
+	}
+
+	void TestAddStart() {
+		var sll = new SingleLinkedList<string>();
+		print("Test Add Start");
+		sll.AddStart("Bar");
+		sll.AddStart("Foo");
+		print("Count: " + sll.Count + ", Value at 1: " + sll.GetValue(1));
+		print("Expected Count: 2, Value: Bar");
+		print(sll);
 	}
 
 }
