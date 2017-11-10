@@ -121,7 +121,10 @@ public class SingleLinkedList<T> : IEnumerable<T> {
 		if (head == null) {
 			Insert(0, value);
 		} else {
-			var last = GetNode(Count - 1);
+			var last = head;
+			while (last.next != null) {
+				last = last.next;
+			}
 			var newNode = new SLLNode();
 			newNode.data = value;
             newNode.next = null;
@@ -159,8 +162,8 @@ public class SingleLinkedList<T> : IEnumerable<T> {
 
     void Remove(SLLNode node) {
 		var iterNode = head;
-		for (int i = 0; i < Count && node != null; i++) {
-			if (node.Equals(iterNode.data)) {
+		for (int i = 0; node != null; i++) {
+			if (node == iterNode) {
 				Remove(i);
 				return;
 			}
@@ -170,7 +173,7 @@ public class SingleLinkedList<T> : IEnumerable<T> {
 
     public void Remove(T value) {
 		var node = head;
-		for (int i = 0; i < Count && node != null; i++) {
+		for (int i = 0; node != null; i++) {
 			if (value.Equals(node.data)) {
 				Remove(i);
 				return;
