@@ -14,7 +14,7 @@ public class SingleLinkedListTesting : MonoBehaviour {
 	}
 	
 	void TestIndexOperations() {
-		SingleLinkedList<string> sll = new SingleLinkedList<string>();
+		var sll = new SingleLinkedList<string>();
 		print("Test index");
 		sll.Insert(0, "Foo");
 		sll.Insert(1, "Bar");
@@ -25,14 +25,14 @@ public class SingleLinkedListTesting : MonoBehaviour {
 
 	void TestConstructor() {
 		print("Test Constructor");
-		SingleLinkedList<string> sll = new SingleLinkedList<string>(new string[] {"Foo", "Bar"});
+		var sll = new SingleLinkedList<string>(new string[] {"Foo", "Bar"});
 		print("Count: " + sll.Count + ", Value at 1: " + sll.GetValue(1));
 		print("Expected Count: 2, Value: Bar");
 		print(sll);
 	}
 
 	void TestAddRemove() {
-		SingleLinkedList<string> sll = new SingleLinkedList<string>();
+		var sll = new SingleLinkedList<string>();
 		print("Test Add");
 		sll.AddLast("Foo");
 		sll.AddLast("Bar");
@@ -48,7 +48,7 @@ public class SingleLinkedListTesting : MonoBehaviour {
 	}
 
 	void TestAddBeforeAfter() {
-		SingleLinkedList<string> sll = new SingleLinkedList<string>();
+		var sll = new SingleLinkedList<string>();
 		print("Test Add Before/After");
 		sll.AddLast("Baz");
 		sll.AddBefore(sll.First, "Foo");
@@ -61,7 +61,7 @@ public class SingleLinkedListTesting : MonoBehaviour {
 
 	void TestEnumeration() {
 		print("Test Enumeration");
-		SingleLinkedList<string> sll = new SingleLinkedList<string>(new string[] {"Foo", "Bar", "Baz"});
+		var sll = new SingleLinkedList<string>(new string[] {"Foo", "Bar", "Baz"});
 		foreach (var item in sll) {
 			print(item);
 		}

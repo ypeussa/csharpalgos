@@ -112,6 +112,11 @@ public class SingleLinkedList<T> : IEnumerable<T> {
         }
     }
 
+    // TODO: add AddStart!
+    public void AddStart(T value) {
+
+    }
+
 	public void AddLast(T value) {
 		if (head == null) {
 			Insert(0, value);
@@ -119,6 +124,7 @@ public class SingleLinkedList<T> : IEnumerable<T> {
 			var last = GetNode(Count - 1);
 			var newNode = new SLLNode();
 			newNode.data = value;
+            newNode.next = null;
 			last.next = newNode;
 		}
 	}
