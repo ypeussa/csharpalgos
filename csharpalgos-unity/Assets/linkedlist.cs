@@ -71,7 +71,7 @@ public class SingleLinkedList<T> : IEnumerable<T> {
 
 	#endregion
 
-    SLLNode Find(T data) {
+    public SLLNode Find(T data) {
         var it = head;
         while (it != null && !(it.data.Equals(data))) {
             it = it.next;
@@ -79,7 +79,25 @@ public class SingleLinkedList<T> : IEnumerable<T> {
         return it;
     }
 
-    // not in C# linked list
+    // not in C# LinkedList (not needed in DLL)
+    public SLLNode FindNode(SLLNode node) {
+        var it = head;
+        while (it != null && it != node) {
+            it = it.next;
+        }
+        return it;
+    }
+
+    // not in C# LinkedList (not needed in DLL)
+    public SLLNode FindPreviousNode(SLLNode node) {
+        var it = head;
+        while (it != null && it.next != node) {
+            it = it.next;
+        }
+        return (it != null && it.next == node) ? it : null;
+    }
+
+    // not in C# LinkedList
     public void Insert(int index, T data) {
         var newNode = new SLLNode();
         newNode.data = data;
@@ -105,29 +123,33 @@ public class SingleLinkedList<T> : IEnumerable<T> {
 		}
 	}
 
-	//TODO: Had an odd bug with after...
-	//public void AddAfter(SLLNode node, T value)
-
-	public void AddBefore(SLLNode node, T value) {
-		var iterNode = head;
-		var newNode = new SLLNode();
-		newNode.data = value;
-		if (iterNode.data.Equals(node.data)) {
-			newNode.next = head;
-			head = newNode;
-		} else {
-			var left = iterNode;
-			for (int i = 0; i < Count; i++) {
-				if (node.Equals(iterNode.data)) {
-					left.next = node;
-					node.next = iterNode;
-					return;
-				}
-				left = iterNode;
-				iterNode = iterNode.next;
-			}
-		}
-	}
+    public void AddAfter(SLLNode node, T value) {
+        var newNode = new SLLNode();
+        newNode.data = value;
+        var it = FindNode(node);
+        if (it != null) {
+            newNode.next = it.next;
+            it.next = newNode;
+        } else
+            throw new System.Exception("node not found");
+    }
+    
+    public void AddBefore(SLLNode node, T value) {
+        var newNode = new SLLNode();
+        newNode.data = value;
+        if (node == head) {
+            newNode.next = head;
+            head = newNode;
+        } else {
+            var it = FindPreviousNode(node);
+            if (it != null) {
+                newNode.next = it.next;
+                it.next = newNode;
+            } else {
+                throw new System.Exception("node not found");
+            }
+        }
+    }
 
     void Remove(SLLNode node) {
 		var iterNode = head;
@@ -151,7 +173,7 @@ public class SingleLinkedList<T> : IEnumerable<T> {
 		}
     }
 
-    // not in C# linked list - exercise?
+    // not in C# LinkedList (indices not preferred for LinkedList)
     public SLLNode GetNode(int i) {
         var it = head;
         while (i > 0) {
@@ -160,12 +182,12 @@ public class SingleLinkedList<T> : IEnumerable<T> {
         }
         return it;
     }
-    // not in C# linked list - exercise?
+    // not in C# LinkedList (indices not preferred for LinkedList)
     public T GetValue(int i) {
         var it = GetNode(i);
         return it.data;
     }
-    // not in C# linked list - exercise?
+    // not in C# LinkedList (indices not preferred for LinkedList)
     void Remove(int index) {
         if (index == 0) {
             head = head.next;
