@@ -29,15 +29,12 @@
 
     public void Insert(int index, int value) {
         used++;
-        int newCapacity = capacity;
-        while (newCapacity < used)
-            newCapacity *= 2;
-        if (newCapacity == capacity) {
+        if (capacity >= used) {
             for (int i = used-2; i >= index; i--) {
                 data[i+1] = data[i];
             }
         } else {
-            capacity = newCapacity;
+            capacity *= 2;
             int[] newData = new int[capacity];
             for (int i = 0; i < used-1; i++) {
                 newData[i + (i < index ? 0 : 1)] = data[i];
